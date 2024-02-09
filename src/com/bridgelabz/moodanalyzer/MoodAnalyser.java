@@ -1,12 +1,9 @@
 package com.bridgelabz.moodanalyzer;
-
-
 public class MoodAnalyser {
     private String message;
 
     public MoodAnalyser() {
-        this.message = "";
-    }
+        this.message = "";}
 
     // Parameterized constructor
     public MoodAnalyser(String message) {
@@ -15,8 +12,12 @@ public class MoodAnalyser {
 
     public String analyseMood() throws MoodAnalysisException {
         try {
-            if (message == null || message.trim().isEmpty()) {
-                throw new MoodAnalysisException(MoodAnalysisError.NULL_OR_EMPTY);
+            if (message == null) {
+                throw new MoodAnalysisException(MoodAnalysisError.NULL_MOOD);
+            }
+            if(message.trim().isEmpty())
+            {
+                throw new MoodAnalysisException(MoodAnalysisError.EMPTY_MOOD);
             }
 
             return message.toLowerCase().contains("sad") ? "SAD" : "HAPPY";
@@ -28,9 +29,22 @@ public class MoodAnalyser {
 
     // Enum to differentiate MoodAnalysis errors
     public enum MoodAnalysisError {
-        NULL_OR_EMPTY, INVALID_MOOD
+        NULL_MOOD("Mood cannot be null"),
+        EMPTY_MOOD("Mood cannot be empty"),
+        INVALID_MOOD("Invalid Mood");
+
+        private final String errorMessage;
+        MoodAnalysisError(String errorMessage)
+        {
+            this.errorMessage=errorMessage;
+        }
+        public String getErrorMessage()
+        {
+            return  errorMessage;
+        }
     }
 }
+
 
 
 
